@@ -90,8 +90,9 @@ namespace Google.Api.Ads.Common.Util {
 
       WebRequest request = HttpWebRequest.Create(url);
 
-      request.Method = method;
-      request.Proxy = config.Proxy;
+      request.Method = method;    
+       if (config.Proxy != null)
+                request.Proxy = config.Proxy;
       request.Timeout = config.Timeout;
 
       HttpWebRequest httpRequest = request as HttpWebRequest;
