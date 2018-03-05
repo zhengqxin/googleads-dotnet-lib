@@ -376,15 +376,17 @@ namespace Google.Api.Ads.Common.Lib {
     /// <summary>
     /// Gets the signature for this library.
     /// </summary>
-    public string Signature {
-      get {
-        string utilsAgent = (IncludeUtilitiesInUserAgent) ? featureUsageRegistry.Text : "";
-        return string.Format("{0}, {1}, .NET CLR/{2}, {3}",
-            GetAssemblySignatureFromAppConfigType(GetType()),
-            GetAssemblySignatureFromAppConfigType(GetType().BaseType), Environment.Version,
-            utilsAgent);
-      }
-    }
+     public string Signature{
+            get{
+                string utilsAgent = (IncludeUtilitiesInUserAgent) ? featureUsageRegistry.Text : "";
+                string tmpSignature = string.Format("{0},{1},.NET CLR/{2},{3}",
+                    GetAssemblySignatureFromAppConfigType(GetType()),
+                    GetAssemblySignatureFromAppConfigType(GetType().BaseType), Environment.Version,
+                    utilsAgent);
+                return tmpSignature.Trim().EndsWith(",") ? tmpSignature.Substring(0, tmpSignature.Length - 1).Trim() 
+                                                         : tmpSignature.Trim();
+            }
+        }
 
     /// <summary>
     /// Gets the number of seconds after Jan 1, 1970, 00:00:00
